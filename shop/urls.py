@@ -18,8 +18,15 @@ from django.urls import path
 from products import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/v1/products/",views.product_all),
-    path("api/v1/products/<int:id>/", views.product_object)
-
+    # path("api/v1/products/",views.product_all),
+    #path("api/v1/products/<int:id>/", views.product_object),
+    path('api/v1/category/products/', views.category_product_list),
+    path('api/v1/products/reviews/', views.reviews),
+    path('api/v1/tags/', views.tags_views),
+    path('api/v1/tags/<int:id>/', views.tags_update_delete_views),
+#    path('api/v1/products/', views.product_view),
+    path('api/v1/products/<int:id>/', views.product_put_delete),
+    path('api/v1/reviews/', views.reviews_views),
+    path('api/v1/login/', views.login)
 ]
 

@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Product
+from rest_framework.authtoken.models import TokenProxy
+
+from .models import Product, Review
 from .models import Category
 from .models import Tag
 
@@ -8,3 +10,5 @@ from .models import Tag
 admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Tag)
+admin.site.register(Review)
+#admin.site.unregister(TokenProxy)

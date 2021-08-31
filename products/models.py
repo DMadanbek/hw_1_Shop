@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -16,6 +17,8 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тег")
+    is_active = models.BooleanField(
+        default=True, verbose_name='Активно/не активно')
 
     class Meta:
         verbose_name = "Тег"
@@ -29,8 +32,9 @@ class Product(models.Model):
     title = models.CharField(max_length=100, verbose_name="Продукт")
     description = models.TextField(verbose_name="Описание")
     price = models.FloatField(verbose_name="Цена")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Категория")
-    tags = models.ManyToManyField(Tag, blank=True, verbose_name="Теги")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                                 related_name='products')
+    tags = models.ManyToManyField(Tag, null=True, blank=True, verbose_name="Теги")
 
     class Meta:
         verbose_name = "Продукт "
@@ -43,7 +47,7 @@ class Product(models.Model):
 class Review(models.Model):
     text = models.TextField(max_length=100, verbose_name="Обзор")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Продукт")
-
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     class Meta:
         verbose_name = "Обзор "
         verbose_name_plural = "Обзоры "
